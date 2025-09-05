@@ -384,17 +384,12 @@ const WebGLBackground: React.FC<WebGLBackgroundProps> = ({ className = '' }) => 
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className={`fixed inset-0 ${className}`}
-      style={{
-        zIndex: 1,
-        pointerEvents: 'none',
-        width: '100vw',
-        height: '100vh'
-      }}
-    />
-  );
+  <canvas
+    ref={canvasRef}
+    className="fixed inset-0 z-0 pointer-events-none w-screen h-screen"
+  />
+);
+
 };
 
 export default WebGLBackground;
