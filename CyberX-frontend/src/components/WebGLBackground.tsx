@@ -386,7 +386,7 @@ const WebGLBackground: React.FC<WebGLBackgroundProps> = ({ className = '' }) => 
   return (
   <canvas
     ref={canvasRef}
-    className="fixed inset-0 z-0 pointer-events-none w-screen h-screen"
+    className={`fixed inset-0 z-0 pointer-events-none w-screen h-screen ${className}`}
   />
 );
 
