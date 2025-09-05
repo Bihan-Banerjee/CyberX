@@ -45,6 +45,7 @@ export const MenuItem = ({
             className="min-w-56 max-w-[720px] max-h-[70vh] overflow-auto
                        bg-black/70 backdrop-blur-xl rounded-2xl
                        border border-white/20 shadow-xl"
+            style={{ overflow: "hidden" }}
           >
             <motion.div layout className="w-max p-4"> {/* note: no h-full */}
               {children}
