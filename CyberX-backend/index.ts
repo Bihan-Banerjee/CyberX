@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import scanRouter from "./routes/scan";
+import osFingerprintRouter from "./routes/osfingerprint";
 
 const app = express();
 const PORT = process.env.PORT || 8787;
@@ -13,6 +14,8 @@ app.use(express.json());
 
 // ✅ Routes
 app.use("/api/scan", scanRouter);
+app.use("/api/osfingerprint", osFingerprintRouter);
+
 
 app.listen(PORT, () => {
   console.log(`API running on http://localhost:${PORT}`);
