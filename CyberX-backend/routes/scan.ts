@@ -4,7 +4,7 @@ import { portScan, parsePorts } from '../scanners/portScanner';
 
 const router = Router();
 
-router.post('/scan', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const { target, ports, tcp = true, udp = false, timeoutMs = 1200, concurrency = 200, retries = 2 } = req.body || {};
     if (!target || !ports) return res.status(400).json({ error: 'target and ports are required' });

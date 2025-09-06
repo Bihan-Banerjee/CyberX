@@ -1,7 +1,7 @@
 // src/pages/Home.tsx
 import React from "react";
 import { Link } from "react-router-dom";
-
+import CyberpunkCard from "@/components/CyberpunkCard";
 const NAV_H = 80; 
 
 export default function Home() {

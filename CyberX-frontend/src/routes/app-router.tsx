@@ -48,7 +48,8 @@ export interface AppRouteDef {
 }
 
 function lazyFrom(page?: string, title?: string): Pick<RouteObject, 'lazy' | 'Component'> {
-  if (!page) return { Component: () => <Placeholder title={title ?? 'Page'} /> };
+  // 🔹 If no page is defined → don't expect an Index.tsx
+  if (!page) return { Component: () => <Outlet /> };
 
   const normalizedCandidates = [
     `../pages/${page}/index.tsx`,
@@ -81,6 +82,7 @@ function lazyFrom(page?: string, title?: string): Pick<RouteObject, 'lazy' | 'Co
 
   return { Component: () => <Placeholder title={page} /> };
 }
+
 
 // Global route registry (add/rename here only)
 export const ROUTES: AppRouteDef[] = [
@@ -122,7 +124,6 @@ export const ROUTES: AppRouteDef[] = [
   // Core Tools (Offensive/Recon/Cloud/Crypto/Stego/Misc)
   {
     path: 'tools',
-    page: 'tools/Index',
     meta: { id: 'tools', title: 'Tools', icon: '🔧', category: 'tools' },
     children: [
       // Recon

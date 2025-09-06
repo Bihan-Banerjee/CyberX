@@ -1,9 +1,19 @@
-import express from 'express';
-import scanRouter from './routes/scan.js';
+import express from "express";
+import cors from "cors";
+import scanRouter from "./routes/scan";
 
 const app = express();
-app.use(express.json());            // parse JSON bodies
-app.use('/api', scanRouter);        // POST /api/scan
-
 const PORT = process.env.PORT || 8787;
-app.listen(PORT, () => console.log(`API on http://localhost:${PORT}`));
+
+// ✅ Enable CORS for all origins (dev-friendly)
+app.use(cors({ origin: "http://localhost:5173" }));
+
+// ✅ Parse JSON requests
+app.use(express.json());
+
+// ✅ Routes
+app.use("/api/scan", scanRouter);
+
+app.listen(PORT, () => {
+  console.log(`API running on http://localhost:${PORT}`);
+});
