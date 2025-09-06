@@ -86,9 +86,9 @@ function lazyFrom(page?: string, title?: string): Pick<RouteObject, 'lazy' | 'Co
 export const ROUTES: AppRouteDef[] = [
   {
     path: '/',
-    page: 'Dashboard',
+    page: 'Home',
     index: true,
-    meta: { id: 'dashboard', title: 'Dashboard', icon: '🎯', category: 'dashboard', tags: ['overview'] },
+    meta: { id: 'home', title: 'Home', icon: '🏠', category: 'dashboard', tags: ['overview'] },
   },
 
   // Honeypot & Defense
