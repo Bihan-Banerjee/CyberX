@@ -1,0 +1,16 @@
+api
+api/v1
+api/v2
+auth
+login
+register
+users
+products
+orders
+admin
+status
+docs
+swagger
+graphql
+health
+ping
