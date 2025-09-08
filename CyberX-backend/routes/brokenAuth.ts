@@ -1,9 +1,9 @@
 import { Router } from "express";
 import axios from "axios";
+import qs from "qs";
 
 const router = Router();
 
-// Default weak creds list for testing
 const defaultCreds = [
   { username: "admin", password: "admin" },
   { username: "admin", password: "password" },
@@ -13,11 +13,7 @@ const defaultCreds = [
 
 router.post("/", async (req, res) => {
   try {
-    const {
-      loginUrl,
-      protectedUrl, // optional, used to test access control
-      creds = defaultCreds,
-    } = req.body;
+    const { loginUrl, protectedUrl, creds = defaultCreds } = req.body;
 
     if (!loginUrl) {
       return res.status(400).json({ error: "Login URL is required" });
@@ -34,62 +30,112 @@ router.post("/", async (req, res) => {
     };
 
     const instance = axios.create({
-      timeout: 7000,
+      timeout: 20000,
+      maxRedirects: 5,
       validateStatus: () => true,
+      headers: {
+        "User-Agent": "Mozilla/5.0 (CyberX Security Scanner)",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
       withCredentials: true,
     });
 
-    // 1️⃣ Direct Access Bypass
+    // 1️⃣ Direct Access Bypass Test
     if (protectedUrl) {
-      const resp = await instance.get(protectedUrl);
-      results.directAccess =
-        resp.status < 300
-          ? "⚠️ Protected resource accessible without auth"
-          : "✅ Access correctly denied";
+      try {
+        const resp = await instance.get(protectedUrl);
+        results.directAccess =
+          resp.status < 300
+            ? "⚠️ Protected resource accessible without auth"
+            : "✅ Access correctly denied";
+      } catch {
+        results.directAccess = "ℹ️ Unable to test direct access";
+      }
     } else {
       results.directAccess = "ℹ️ No protected URL provided";
     }
 
-    // 2️⃣ Default Credentials
+    // 2️⃣ Default Credentials Test
+    let weakCredsFound = false;
     for (const { username, password } of creds) {
-      try {
-        const resp = await instance.post(loginUrl, { username, password });
-        if (resp.status < 300 && /token|session/i.test(JSON.stringify(resp.data))) {
+      const payloads = [
+        qs.stringify({ username, password }),
+        qs.stringify({ email: username, password }),
+        qs.stringify({ user: username, pass: password }),
+      ];
+
+      for (const payload of payloads) {
+        try {
+          const resp = await instance.post(loginUrl, payload);
+          if (
+            resp.status === 200 &&
+            (/token|session/i.test(JSON.stringify(resp.data)) ||
+              resp.headers["set-cookie"])
+          ) {
+            results.defaultCreds.push({
+              username,
+              password,
+              status: "❌ Weak credentials accepted",
+            });
+            weakCredsFound = true;
+            break;
+          }
+        } catch (err: any) {
           results.defaultCreds.push({
             username,
             password,
-            status: "❌ Weak credentials accepted",
+            status: `⚠️ Error: ${err.message}`,
           });
-          break;
         }
-      } catch {
-        // Ignore errors
       }
+      if (weakCredsFound) break;
     }
-    if (results.defaultCreds.length === 0) {
+    if (!weakCredsFound) {
       results.defaultCreds.push({ status: "✅ Default creds rejected" });
     }
 
-    // 3️⃣ Session Management
-    const loginAttempt = await instance.post(loginUrl, creds[0]);
-    if (!loginAttempt.headers["set-cookie"] && !loginAttempt.data.token) {
-      results.sessionManagement = "⚠️ No session cookie or token detected";
-    } else {
-      results.sessionManagement = "✅ Session token/cookie correctly issued";
+    // 3️⃣ Session Management Check
+    try {
+      const attempt = await instance.post(
+        loginUrl,
+        qs.stringify(creds[0])
+      );
+      results.sessionManagement =
+        attempt.headers["set-cookie"] || attempt.data.token
+          ? "✅ Session token/cookie issued"
+          : "⚠️ No session token or cookie detected";
+    } catch {
+      results.sessionManagement = "ℹ️ Session check skipped";
     }
 
-    // 4️⃣ Improper HTTP Method Check
-    const wrongMethod = await instance.get(loginUrl);
-    results.methodCheck =
-      wrongMethod.status < 300
-        ? "⚠️ Login allows GET — possible bypass"
-        : "✅ Login correctly restricts methods";
+    // 4️⃣ HTTP Method Validation
+    try {
+      const wrongMethod = await instance.get(loginUrl);
+      results.methodCheck =
+        wrongMethod.status < 300
+          ? "⚠️ Login allows GET — possible bypass"
+          : "✅ Login correctly restricts methods";
+    } catch {
+      results.methodCheck = "ℹ️ Method check skipped";
+    }
 
     // 5️⃣ Open Redirect Check
-    if (loginAttempt.request.res.responseUrl !== loginUrl) {
-      results.redirectBehavior = `⚠️ Unexpected redirect to ${loginAttempt.request.res.responseUrl}`;
-    } else {
-      results.redirectBehavior = "✅ No insecure redirects detected";
+    try {
+      const loginAttempt = await instance.post(
+        loginUrl,
+        qs.stringify(creds[0])
+      );
+      if (
+        loginAttempt.request.res &&
+        loginAttempt.request.res.responseUrl &&
+        loginAttempt.request.res.responseUrl !== loginUrl
+      ) {
+        results.redirectBehavior = `⚠️ Unexpected redirect to ${loginAttempt.request.res.responseUrl}`;
+      } else {
+        results.redirectBehavior = "✅ No insecure redirects detected";
+      }
+    } catch {
+      results.redirectBehavior = "ℹ️ Redirect check skipped";
     }
 
     res.json({ success: true, results });

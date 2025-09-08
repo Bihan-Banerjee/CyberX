@@ -12,6 +12,9 @@ import dirFuzzerRouter from "./routes/dirFuzzer";
 import vulnFuzzerRouter from "./routes/vulnFuzzer";
 import apiScannerRouter from "./routes/apiScanner";
 import brokenAuthRouter from "./routes/brokenAuth";
+import bucketFinderRouter from "./routes/bucketFinder";
+import containerScannerRouter from "./routes/containerScanner";
+import k8sEnumRouter from "./routes/k8sEnum";
 
 const app = express();
 const PORT = process.env.PORT || 8787;
@@ -35,6 +38,9 @@ app.use("/api/dir-fuzzer", dirFuzzerRouter);
 app.use("/api/vuln-fuzzer", vulnFuzzerRouter);
 app.use("/api/api-scanner", apiScannerRouter);
 app.use("/api/broken-auth", brokenAuthRouter);
+app.use("/api/bucket-finder", bucketFinderRouter);
+app.use("/api/container-scan", containerScannerRouter);
+app.use("/api/k8s-enum", k8sEnumRouter);
 
 app.listen(PORT, () => {
   console.log(`API running on http://localhost:${PORT}`);

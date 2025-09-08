@@ -1,0 +1,13 @@
+test
+dev
+staging
+backup
+uploads
+static
+assets
+public
+www
+media
+logs
+cdn
+files

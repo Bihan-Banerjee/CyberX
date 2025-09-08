@@ -141,7 +141,7 @@ export const ROUTES: AppRouteDef[] = [
       { path: 'broken-auth', page: 'tools/BrokenAuth', meta: { id: 'broken-auth', title: 'Broken Auth Detector', category: 'tools' } },
 
       // Cloud & Containers
-      { path: 's3-finder', page: 'cloud/S3Finder', meta: { id: 's3', title: 'S3 Bucket Finder', category: 'cloud' } },
+      { path: 's3-finder', page: 'cloud/BucketFinder', meta: { id: 's3', title: 'S3 Bucket Finder', category: 'cloud' } },
       { path: 'container-scan', page: 'cloud/ContainerScanner', meta: { id: 'containers', title: 'Container CVE Scanner', category: 'cloud' } },
       { path: 'k8s-enum', page: 'cloud/K8sEnum', meta: { id: 'k8s', title: 'Kubernetes Enum', category: 'cloud' } },
 
