@@ -18,6 +18,8 @@ import k8sEnumRouter from "./routes/k8sEnum";
 import hashRouter from "./routes/hash";
 import cryptoRouter from "./routes/crypto";
 import jwtDecodeRouter from "./routes/jwtDecode";
+import stegoRouter from "./routes/stegoImage";
+import stegoAudioRouter from "./routes/stegoAudio";
 
 const app = express();
 const PORT = process.env.PORT || 8787;
@@ -47,6 +49,8 @@ app.use("/api/k8s-enum", k8sEnumRouter);
 app.use("/api/hash", hashRouter);
 app.use("/api/crypto", cryptoRouter);
 app.use("/api/jwt-decode", jwtDecodeRouter);
+app.use("/api/stego-image", stegoRouter);
+app.use("/api/stego-audio", stegoAudioRouter);
 
 app.listen(PORT, () => {
   console.log(`API running on http://localhost:${PORT}`);
