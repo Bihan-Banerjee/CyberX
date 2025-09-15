@@ -146,9 +146,9 @@ export const ROUTES: AppRouteDef[] = [
       { path: 'k8s-enum', page: 'cloud/K8sEnum', meta: { id: 'k8s', title: 'Kubernetes Enum', category: 'cloud' } },
 
       // Crypto/Hashing
-      { path: 'hash-cracker', page: 'crypto/HashCracker', meta: { id: 'hash', title: 'Hash Generator/Cracker', category: 'crypto' } },
-      { path: 'ciphers', page: 'crypto/CipherTools', meta: { id: 'ciphers', title: 'Cipher Encoder/Decoder', category: 'crypto' } },
-      { path: 'rsa-aes', page: 'crypto/RsaAes', meta: { id: 'rsa-aes', title: 'RSA/AES Encrypt/Decrypt', category: 'crypto' } },
+      { path: 'hash-cracker', page: 'crypto/HashTool', meta: { id: 'hash', title: 'Hash Generator/Cracker', category: 'crypto' } },
+      { path: 'ciphers', page: 'crypto/CipherTool', meta: { id: 'ciphers', title: 'Cipher Encoder/Decoder', category: 'crypto' } },
+      { path: 'rsa-aes', page: 'crypto/RSATool', meta: { id: 'rsa-aes', title: 'RSA/AES Encrypt/Decrypt', category: 'crypto' } },
       { path: 'jwt', page: 'crypto/JWTDecoder', meta: { id: 'jwt', title: 'JWT Decoder', category: 'crypto' } },
 
       // Steganography & Media

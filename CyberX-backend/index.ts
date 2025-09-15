@@ -15,6 +15,9 @@ import brokenAuthRouter from "./routes/brokenAuth";
 import bucketFinderRouter from "./routes/bucketFinder";
 import containerScannerRouter from "./routes/containerScanner";
 import k8sEnumRouter from "./routes/k8sEnum";
+import hashRouter from "./routes/hash";
+import cryptoRouter from "./routes/crypto";
+import jwtDecodeRouter from "./routes/jwtDecode";
 
 const app = express();
 const PORT = process.env.PORT || 8787;
@@ -41,6 +44,9 @@ app.use("/api/broken-auth", brokenAuthRouter);
 app.use("/api/bucket-finder", bucketFinderRouter);
 app.use("/api/container-scan", containerScannerRouter);
 app.use("/api/k8s-enum", k8sEnumRouter);
+app.use("/api/hash", hashRouter);
+app.use("/api/crypto", cryptoRouter);
+app.use("/api/jwt-decode", jwtDecodeRouter);
 
 app.listen(PORT, () => {
   console.log(`API running on http://localhost:${PORT}`);
