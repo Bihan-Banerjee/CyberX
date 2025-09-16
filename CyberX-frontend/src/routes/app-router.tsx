@@ -158,7 +158,7 @@ export const ROUTES: AppRouteDef[] = [
       { path: 'image-exif', page: 'stego/ImageMeta', meta: { id: 'exif', title: 'Image Metadata Analyzer', category: 'stego' } },
 
       // Intelligence & OSINT
-      { path: 'breach-check', page: 'intel/BreachChecker', meta: { id: 'breach', title: 'Email Breach Checker', category: 'intel' } },
+      { path: 'breach-check', page: 'intel/EmailBreachChecker', meta: { id: 'breach', title: 'Email Breach Checker', category: 'intel' } },
       { path: 'google-dorks', page: 'intel/GoogleDorker', meta: { id: 'dorks', title: 'Google Dorking', category: 'intel' } },
       { path: 'shodan-censys', page: 'intel/ShodanCensys', meta: { id: 'shodan', title: 'Shodan & Censys', category: 'intel' } },
       { path: 'pastebin-leaks', page: 'intel/PastebinLeaks', meta: { id: 'pastebin', title: 'Pastebin Leak Finder', category: 'intel' } },
