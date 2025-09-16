@@ -155,7 +155,7 @@ export const ROUTES: AppRouteDef[] = [
       { path: 'stego-image', page: 'stego/ImageStego', meta: { id: 'stego-img', title: 'Image Steganography', category: 'stego' } },
       { path: 'stego-audio', page: 'stego/AudioStego', meta: { id: 'stego-audio', title: 'Audio Steganography', category: 'stego' } },
       { path: 'stego-extract', page: 'stego/StegoExtract', meta: { id: 'stego-extract', title: 'Stego Extractor', category: 'stego' } },
-      { path: 'image-exif', page: 'stego/ImageMetadata', meta: { id: 'exif', title: 'Image Metadata Analyzer', category: 'stego' } },
+      { path: 'image-exif', page: 'stego/ImageMeta', meta: { id: 'exif', title: 'Image Metadata Analyzer', category: 'stego' } },
 
       // Intelligence & OSINT
       { path: 'breach-check', page: 'intel/BreachChecker', meta: { id: 'breach', title: 'Email Breach Checker', category: 'intel' } },
