@@ -51,7 +51,6 @@ export default function CyberpunkCard({
     <div className="cp-card">
       <div className="cp-header">
         <h3 className="cp-title">{title}</h3>
-        <span className="cp-chip">OK</span>
       </div>
       {message && <p className="cp-text">{message}</p>}
 
