@@ -10,13 +10,8 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
 
   return (
     <div className="relative min-h-screen text-white isolate">
-      {/* Animated background behind everything */}
       <WebGLBackground />
-
-      {/* Optional subtle contrast over the animation */}
       <div className="fixed inset-0 -z-[1] pointer-events-none bg-gradient-to-b from-black/30 via-black/10 to-black/40" />
-
-      {/* Navbar (fixed, centered, above background) */}
       <Menu setActive={setActive}>
         {/* Home */}
         <MenuItem setActive={setActive} active={active} item="Home">
@@ -116,12 +111,7 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
         </MenuItem>
       </Menu>
 
-      {/* Content area - EDITED FOR CENTERING
-        - `min-h-screen`: Ensures the container is tall enough for vertical centering.
-        - `flex items-center justify-center`: This centers the content (your CyberpunkCard).
-        - `pt-20`: This padding ensures your content is pushed down below the fixed navbar.
-      */}
-      <main className="relative z-20 flex min-h-screen items-center justify-center px-4 pt-20">
+      <main className="relative z-20 flex min-h-screen items-center justify-center p-4 pt-20">
         <CyberpunkCursor />
         {children}
       </main>
