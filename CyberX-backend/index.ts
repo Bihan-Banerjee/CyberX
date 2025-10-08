@@ -24,7 +24,7 @@ import stegoExtractRouter from "./routes/stegoExtract";
 import imageMetaRouter from "./routes/imageMeta";
 import emailBreachRoutes from "./routes/emailBreach";
 import googleDorkRouter from "./routes/googleDork";
-
+import packetAnalyzerRouter from "./routes/packetAnalyzer";
 const app = express();
 const PORT = process.env.PORT || 8787;
 
@@ -59,6 +59,7 @@ app.use("/api/stego-extract", stegoExtractRouter);
 app.use("/api/image-meta", imageMetaRouter);
 app.use("/api/emailbreach", emailBreachRoutes);
 app.use("/api/google-dork", googleDorkRouter);
+app.use("/api/packet-analyzer", packetAnalyzerRouter);
 
 app.listen(PORT, () => {
   console.log(`API running on http://localhost:${PORT}`);

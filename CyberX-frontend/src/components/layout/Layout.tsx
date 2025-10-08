@@ -1,10 +1,10 @@
-// src/components/layout/Layout.tsx
 import React, { useState } from 'react';
 import type { PropsWithChildren } from 'react';
 import { Link } from 'react-router-dom';
 import WebGLBackground from '../WebGLBackground';
-import { Menu, MenuItem, HoveredLink, ProductItem } from '../ui/navbar-menu';
+import { Menu, MenuItem } from '../ui/navbar-menu';
 import CyberpunkCursor from "@/components/CyberpunkCursor";
+
 const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   const [active, setActive] = useState<string | null>(null);
 
@@ -116,8 +116,12 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
         </MenuItem>
       </Menu>
 
-      {/* Content area (above overlay/background; below navbar) */}
-      <main className="relative z-20 pt-20 px-4">
+      {/* Content area - EDITED FOR CENTERING
+        - `min-h-screen`: Ensures the container is tall enough for vertical centering.
+        - `flex items-center justify-center`: This centers the content (your CyberpunkCard).
+        - `pt-20`: This padding ensures your content is pushed down below the fixed navbar.
+      */}
+      <main className="relative z-20 flex min-h-screen items-center justify-center px-4 pt-20">
         <CyberpunkCursor />
         {children}
       </main>
