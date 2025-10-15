@@ -25,6 +25,8 @@ import imageMetaRouter from "./routes/imageMeta";
 import emailBreachRoutes from "./routes/emailBreach";
 import googleDorkRouter from "./routes/googleDork";
 import packetAnalyzerRouter from "./routes/packetAnalyzer";
+import honeypotRouter from './routes/honeypot';
+
 const app = express();
 const PORT = process.env.PORT || 8787;
 
@@ -60,6 +62,7 @@ app.use("/api/image-meta", imageMetaRouter);
 app.use("/api/emailbreach", emailBreachRoutes);
 app.use("/api/google-dork", googleDorkRouter);
 app.use("/api/packet-analyzer", packetAnalyzerRouter);
+app.use('/api/honeypot', honeypotRouter); 
 
 app.listen(PORT, () => {
   console.log(`API running on http://localhost:${PORT}`);

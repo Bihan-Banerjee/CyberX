@@ -28,11 +28,12 @@ import ImageMeta from '../pages/stego/ImageMeta';
 import EmailBreachChecker from '../pages/intel/EmailBreachChecker';
 import GoogleDork from '../pages/intel/GoogleDork';
 import PacketAnalyzer from '@/pages/misc/PacketAnalyzer';
+import HoneypotDashboard from '@/pages/honeypot/HoneypotDashboard';
 
 const routes: RouteObject[] = [
   {
     path: '/',
-    element: <Layout />, // Single parent Layout
+    element: <Layout />, 
     children: [
       { index: true, element: <Home /> },
       { path: 'tools/port-scanner', element: <PortScanner /> },
@@ -61,6 +62,7 @@ const routes: RouteObject[] = [
       { path: 'tools/breach-check', element: <EmailBreachChecker /> },
       { path: 'tools/google-dorks', element: <GoogleDork /> },
       { path: 'tools/packet-analyzer', element: <PacketAnalyzer /> },
+      { path: '/honeypot', element: <HoneypotDashboard /> },
     ],
   },
 ];
