@@ -1,4 +1,7 @@
+import { cn } from "@/lib/utils";
+
 export type CyberpunkCardProps = {
+  className?: string;
   title?: string;
   message?: string;
   confirmText?: string;
@@ -12,6 +15,7 @@ export type CyberpunkCardProps = {
 };
 
 export default function CyberpunkCard({
+  className,
   title = "CyberX Tool",
   message = "",
   confirmText = "Confirm",
@@ -37,7 +41,6 @@ export default function CyberpunkCard({
     }
     .cp-card-component {
       position: relative;
-      width: 720px;
       max-width: 92vw;
       padding: 20px 20px 16px;
       border-radius: var(--cp-radius);
@@ -66,14 +69,16 @@ export default function CyberpunkCard({
   return (
     <>
       <style>{css}</style>
-      <div className="cp-card-component">
-        <div className="cp-header">
-          <h3 className="cp-title">{title}</h3>
+      <div className={cn("cp-card-component w-full max-w-3xl min-h-[520px] flex flex-col", className)}>
+        <div>
+          <div className="cp-header">
+            <h3 className="cp-title">{title}</h3>
+          </div>
+          
+          {message && <p className="cp-text">{message}</p>}
         </div>
-        
-        {message && <p className="cp-text">{message}</p>}
 
-        {children && <div className="cp-children">{children}</div>}
+        {children && <div className="cp-children flex-grow">{children}</div>}
 
         {(onConfirm || onCancel) && (
           <div className="cp-actions">
@@ -93,3 +98,4 @@ export default function CyberpunkCard({
     </>
   );
 }
+

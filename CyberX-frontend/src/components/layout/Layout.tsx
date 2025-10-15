@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import type { PropsWithChildren } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import WebGLBackground from '../WebGLBackground';
 import { Menu, MenuItem } from '../ui/navbar-menu';
 import CyberpunkCursor from "@/components/CyberpunkCursor";
 
-const Layout: React.FC<PropsWithChildren> = ({ children }) => {
+const Layout: React.FC = () => {
   const [active, setActive] = useState<string | null>(null);
 
   return (
-    <div className="relative min-h-screen text-white isolate">
+    <div className="relative w-screen h-screen text-white isolate">
       <WebGLBackground />
       <div className="fixed inset-0 -z-[1] pointer-events-none bg-gradient-to-b from-black/30 via-black/10 to-black/40" />
+      
       <Menu setActive={setActive}>
         {/* Home */}
         <MenuItem setActive={setActive} active={active} item="Home">
@@ -22,7 +22,7 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
           </div>
         </MenuItem>
 
-        {/* Honeypot & Defense */}
+        {/* Honeypot & Defense (RESTORED) */}
         <MenuItem setActive={setActive} active={active} item="Honeypot">
           <div className="grid grid-cols-1 gap-2">
             <Link className="hover:text-cyan-400" to="/honeypot">Honeypot Dashboard</Link>
@@ -92,7 +92,7 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
           </div>
         </MenuItem>
 
-        {/* AI & Simulations */}
+        {/* AI & Simulations (RESTORED) */}
         <MenuItem setActive={setActive} active={active} item="AI Engine">
           <div className="grid grid-cols-1 gap-2">
             <Link className="hover:text-cyan-400" to="/ai/engine">Adaptive Engine</Link>
@@ -102,7 +102,7 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
           </div>
         </MenuItem>
 
-        {/* About */}
+        {/* About (RESTORED) */}
         <MenuItem setActive={setActive} active={active} item="About">
           <div className="grid grid-cols-1 gap-2">
             <Link className="hover:text-cyan-400" to="/about">Project</Link>
@@ -113,7 +113,7 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
 
       <main className="relative z-20 flex min-h-screen items-center justify-center p-4 pt-20">
         <CyberpunkCursor />
-        {children}
+        <Outlet />
       </main>
     </div>
   );
